@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import Forecast from "./Forecast";
+import ForecastResult from "./ForecastResult";
 import "./Weather.css";
 
 export default function Weather() {
   const [city, setCity] = useState("");
   const [loaded, setLaoded] = useState("");
   const [result, setResult] = useState({});
+  // const [coord, setCoord] = useState({});
+  const [forecast, setForecast] = useState([]);
+
+  function timeformat(time) {
+    if (time < 10) {
+      return "0" + time;
+    } else return time;
+  }
+  function displaytime(time) {
+    let date = new Date(time * 1000);
+    let hour = date.getHours();
+    let mins = date.getMinutes();
+    let days = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    return ` ${days[date.getDay()]} ${date.getDate()}, ${timeformat(
+      hour
+    )}:${timeformat(mins)}`;
+  }
 
   function getCity(event) {
     setCity(event.target.value);
+  }
+
+  function getForecastArray(response) {
+    setForecast(response.data.daily);
+    console.log(forecast);
   }
   function handleResponse(response) {
     console.log(response);
@@ -19,7 +49,7 @@ export default function Weather() {
       name: response.data.name,
       temperature: response.data.main.temp,
       country: response.data.sys.country,
-      date: response.data.sys.dt,
+      date: response.data.dt,
       description: response.data.weather[0].description,
       humidity: response.data.main.humidity,
       wind: response.data.wind.speed,
@@ -28,6 +58,17 @@ export default function Weather() {
       high: response.data.main.temp_max,
       low: response.data.main.temp_min,
     });
+    // setCoord({ lat: response.data.coord.lat, lon: response.data.coord.lon });
+    // console.log(
+    //   `lat=${response.data.coord.lat} and lon=${response.data.coord.lon} `
+    // );
+    // console.log(
+    //   `1st  object of coord => lat= ${coord.lat} 2st  object of coord => lon= ${coord.lon}`
+    // );
+    let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
+    let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
+    console.log(`forecasr url is ${apiUrlForecast}`);
+    axios.get(apiUrlForecast).then(getForecastArray);
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -69,7 +110,7 @@ export default function Weather() {
             <h2>
               {result.name}, {result.country}
             </h2>
-            <h4 className="text-muted">Monday 29 April {result.date}</h4>
+            <h4 className="text-muted">{displaytime(result.date)}</h4>
             <div className="d-flex justify-content-around mt-5 ">
               <div>
                 <span className="temperature">
@@ -90,7 +131,7 @@ export default function Weather() {
                   heigh="150"
                 />
 
-                <div className=" maxmin d-flex justify-content-between">
+                <div className=" maxmin d-flex justify-content-center">
                   <div>
                     <div>High</div>
                     <div>{Math.round(result.high)}</div>
@@ -114,9 +155,7 @@ export default function Weather() {
               </div>
             </div>
             <hr />
-            <div>
-              <Forecast city={city} />
-            </div>
+            <ForecastResult forecastArray={forecast} />
           </div>
         </div>
       </div>

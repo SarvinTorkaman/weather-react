@@ -4,6 +4,7 @@
   margin: 30px auto;
   font-family: "Spartan", sans-serif;
   background-color: aliceblue;
+  border-radius: 5px;
 }
 .form-control {
   font-family: "Work Sans", sans-serif;
