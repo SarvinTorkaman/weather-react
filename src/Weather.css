@@ -1,0 +1,67 @@
+.Weather {
+  padding: 30px;
+  max-width: 800px;
+  margin: 30px auto;
+  font-family: "Spartan", sans-serif;
+  background-color: aliceblue;
+}
+.form-control {
+  font-family: "Work Sans", sans-serif;
+  font-weight: 600;
+  color: rgb(12, 12, 12);
+}
+
+.maxmin {
+  font-size: 15px;
+}
+.result {
+  padding: 30px;
+}
+.Weather h2,
+h4 {
+  text-align: left;
+}
+
+.Weather .temperature {
+  font-size: 90px;
+  font-family: "Spartan", sans-serif;
+}
+
+.Weather .description {
+  font-size: 20px;
+  font-family: "Work Sans", sans-serif;
+  line-height: 2.5;
+  float: center;
+  position: relative;
+  top: -30px;
+}
+.Weather .description::first-letter {
+  text-transform: uppercase;
+}
+.icon {
+  font-size: 90px;
+}
+.icon img {
+  position: relative;
+  top: -10px;
+}
+
+.Weather .unit {
+  font-size: 25px;
+  position: relative;
+  top: -50px;
+}
+
+.Weather .unit a {
+  text-decoration: none;
+}
+
+.Weather .detail {
+  font-size: 16px;
+  line-height: 2;
+}
+
+/* .icon {
+  display: inline-block;
+  vertical-align: top;
+} */
