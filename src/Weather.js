@@ -8,7 +8,6 @@ export default function Weather() {
   const [city, setCity] = useState("");
   const [loaded, setLaoded] = useState("");
   const [result, setResult] = useState({});
-  // const [coord, setCoord] = useState({});
   const [forecast, setForecast] = useState([]);
 
   function timeformat(time) {
@@ -40,10 +39,10 @@ export default function Weather() {
 
   function getForecastArray(response) {
     setForecast(response.data.daily);
-    console.log(forecast);
+    // console.log(forecast);
   }
-  function handleResponse(response) {
-    console.log(response);
+  function getWeather(response) {
+    // console.log(response);
     setLaoded(true);
     setResult({
       name: response.data.name,
@@ -58,23 +57,30 @@ export default function Weather() {
       high: response.data.main.temp_max,
       low: response.data.main.temp_min,
     });
-    // setCoord({ lat: response.data.coord.lat, lon: response.data.coord.lon });
-    // console.log(
-    //   `lat=${response.data.coord.lat} and lon=${response.data.coord.lon} `
-    // );
-    // console.log(
-    //   `1st  object of coord => lat= ${coord.lat} 2st  object of coord => lon= ${coord.lon}`
-    // );
+
     let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
     let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
-    console.log(`forecasr url is ${apiUrlForecast}`);
+
     axios.get(apiUrlForecast).then(getForecastArray);
   }
   function handleSubmit(event) {
     event.preventDefault();
     let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    axios.get(apiUrl).then(handleResponse);
+    axios.get(apiUrl).then(getWeather);
+  }
+
+  function searchLocation(position) {
+    console.log(position);
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(getWeather);
+  }
+  function getLocation(event) {
+    event.preventDefault();
+    navigator.geolocation.getCurrentPosition(searchLocation);
   }
 
   let form = (
@@ -94,7 +100,12 @@ export default function Weather() {
           <input className="form-control mt-2" type="submit" value="Search" />
         </div>
         <div className="col-md-2 mt-2">
-          <input className="form-control" type="button" value="Current" />
+          <input
+            className="form-control"
+            type="button"
+            value="Current"
+            onClick={getLocation}
+          />
         </div>{" "}
       </div>
     </form>
@@ -111,13 +122,13 @@ export default function Weather() {
               {result.name}, {result.country}
             </h2>
             <h4 className="text-muted">{displaytime(result.date)}</h4>
-            <div className="d-flex justify-content-around mt-5 ">
+            <div className="d-sm-flex d-block justify-content-around mt-5 ">
               <div>
                 <span className="temperature">
                   {Math.round(result.temperature)}°
                 </span>
                 <span className="unit">
-                  <a href="/">C</a> | <a href="/">F</a>
+                  <a href="/">C</a>
                 </span>
                 <div className="description ">
                   <em>{result.description}</em>{" "}
@@ -131,7 +142,7 @@ export default function Weather() {
                   heigh="150"
                 />
 
-                <div className=" maxmin d-flex justify-content-center">
+                <div className=" maxmin d-flex justify-content-around">
                   <div>
                     <div>High</div>
                     <div>{Math.round(result.high)}</div>

@@ -2,6 +2,13 @@
   text-align: center;
 }
 
+footer {
+  color: azure;
+}
+footer a {
+  color: rgb(172, 171, 189);
+}
+
 /* @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

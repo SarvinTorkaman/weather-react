@@ -8,10 +8,10 @@ export default function ForecastResult(props) {
 
     return days[date.getDay()];
   }
-  console.log(` array is ${props.forecastArray}`);
-  console.log(`sliced array is ${props.forecastArray.slice(0, 6)}`);
+  //   console.log(` array is ${props.forecastArray}`);
+  //   console.log(`sliced array is ${props.forecastArray.slice(1, 6)}`);
   return (
-    <div className="row mt-5 d-flex justify-content-center">
+    <div className="row mt-4 d-flex justify-content-center">
       {props.forecastArray.slice(1, 6).map((forecastDay, index) => {
         return (
           <div key={index} className="col-md-2 m-2 p-2 card ">

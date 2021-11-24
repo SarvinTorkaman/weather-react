@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <Weather city="london" />
       </header>
-      <footer>
+      <footer className="mt-0 mb-3">
         This app is made by{" "}
         <a
           href="https://elegant-stonebraker-6f49e2.netlify.app/"
