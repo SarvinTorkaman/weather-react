@@ -154,7 +154,7 @@ export default function Weather() {
                 </div>
               </div>
             </div>
-            <div className="row mt-5  mb-5 detail">
+            <div className="row mt-4  mb-4 detail">
               <div className="col-md-4 text-muted">
                 Humidity: {result.humidity}%
               </div>
