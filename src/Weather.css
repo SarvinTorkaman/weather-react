@@ -1,7 +1,7 @@
 .Weather {
-  padding: 30px;
+  padding: 25px;
   max-width: 800px;
-  margin: 30px auto 0 auto;
+  margin: 25px auto 0 auto;
   font-family: "Spartan", sans-serif;
   background-color: aliceblue;
   border-radius: 5px;
@@ -16,7 +16,8 @@
   font-size: 15px;
 }
 .result {
-  padding: 30px;
+  padding: 25px;
+  padding-bottom: 5px;
 }
 .Weather h2,
 h4 {
@@ -61,11 +62,6 @@ h4 {
   font-size: 16px;
   line-height: 2;
 }
-
-/* .icon {
-  display: inline-block;
-  vertical-align: top;
-} */
 
 @media (max-width: 576px) {
   .Weather .temperature {
