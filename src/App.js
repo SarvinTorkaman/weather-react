@@ -19,7 +19,7 @@ function App() {
         </a>{" "}
         and it is open-source on{" "}
         <a
-          href="https://elegant-stonebraker-6f49e2.netlify.app/"
+          href="https://github.com/SarvinTorkaman/weather-react"
           target="_blank"
           rel="noreferrer"
         >
