@@ -6,8 +6,8 @@ import "./Weather.css";
 
 export default function Weather() {
   const [city, setCity] = useState("");
-  const [loaded, setLaoded] = useState("");
   const [result, setResult] = useState({});
+  const [loaded, setLaoded] = useState("");
   const [forecast, setForecast] = useState([]);
 
   function timeformat(time) {
