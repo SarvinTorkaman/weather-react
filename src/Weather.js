@@ -43,7 +43,7 @@ export default function Weather() {
   }
   function getWeather(response) {
     // console.log(response);
-    setLaoded(true);
+
     setResult({
       name: response.data.name,
       temperature: response.data.main.temp,
@@ -60,7 +60,7 @@ export default function Weather() {
 
     let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
     let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
-
+    setLaoded(true);
     axios.get(apiUrlForecast).then(getForecastArray);
   }
   function handleSubmit(event) {
