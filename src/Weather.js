@@ -9,6 +9,9 @@ export default function Weather() {
   const [result, setResult] = useState({});
   const [loaded, setLaoded] = useState("");
   const [forecast, setForecast] = useState([]);
+  //const [fahrenheit, setFahrenheit] = useState("");
+  // const [celcius, setCelcius] = useState(result.temperature);
+  let [temperature, setTemperature] = useState("");
 
   function timeformat(time) {
     if (time < 10) {
@@ -41,6 +44,7 @@ export default function Weather() {
     setForecast(response.data.daily);
     // console.log(forecast);
   }
+
   function getWeather(response) {
     // console.log(response);
 
@@ -57,6 +61,7 @@ export default function Weather() {
       high: response.data.main.temp_max,
       low: response.data.main.temp_min,
     });
+    setTemperature(Math.round(response.data.main.temp));
 
     let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
     let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
@@ -83,6 +88,18 @@ export default function Weather() {
     navigator.geolocation.getCurrentPosition(searchLocation);
   }
 
+  let celcius = Math.round(result.temperature);
+  function getFahrenheit(event) {
+    event.preventDefault();
+    // temperature = Math.round((result.temperature * 9) / 5 + 32);
+    setTemperature(Math.round((celcius * 9) / 5 + 32));
+    // console.log(temperature);
+  }
+  function getCelcius(event) {
+    event.preventDefault();
+    setTemperature(Math.round(result.temperature));
+    // console.log(temperature);
+  }
   let form = (
     <form className="mb-4" onSubmit={handleSubmit}>
       <div className="row">
@@ -122,13 +139,17 @@ export default function Weather() {
               {result.name}, {result.country}
             </h2>
             <h4 className="text-muted">{displaytime(result.date)}</h4>
-            <div className="d-sm-flex d-block justify-content-around mt-5 ">
+            <div className="d-md-flex d-block justify-content-around mt-5 ">
               <div>
-                <span className="temperature">
-                  {Math.round(result.temperature)}°
-                </span>
+                <span className="temperature">{Math.round(temperature)}°</span>
                 <span className="unit">
-                  <a href="/">C</a>
+                  <a href="/" onClick={getCelcius}>
+                    C
+                  </a>{" "}
+                  |{" "}
+                  <a href="/" onClick={getFahrenheit}>
+                    F
+                  </a>
                 </span>
                 <div className="description ">
                   <em>{result.description}</em>{" "}
