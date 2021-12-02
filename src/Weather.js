@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import FormattedDate from "./FormattedDate";
 
 import ForecastResult from "./ForecastResult";
 import "./Weather.css";
@@ -12,29 +13,6 @@ export default function Weather() {
   //const [fahrenheit, setFahrenheit] = useState("");
   // const [celcius, setCelcius] = useState(result.temperature);
   let [temperature, setTemperature] = useState("");
-
-  function timeformat(time) {
-    if (time < 10) {
-      return "0" + time;
-    } else return time;
-  }
-  function displaytime(time) {
-    let date = new Date(time * 1000);
-    let hour = date.getHours();
-    let mins = date.getMinutes();
-    let days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    return ` ${days[date.getDay()]} ${date.getDate()}, ${timeformat(
-      hour
-    )}:${timeformat(mins)}`;
-  }
 
   function getCity(event) {
     setCity(event.target.value);
@@ -76,7 +54,7 @@ export default function Weather() {
   }
 
   function searchLocation(position) {
-    console.log(position);
+    // console.log(position);
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
@@ -138,7 +116,9 @@ export default function Weather() {
             <h2>
               {result.name}, {result.country}
             </h2>
-            <h4 className="text-muted">{displaytime(result.date)}</h4>
+            <h4 className="text-muted">
+              <FormattedDate date={result.date} />
+            </h4>
             <div className="d-md-flex d-block justify-content-around mt-5 ">
               <div>
                 <span className="temperature">{Math.round(temperature)}°</span>
