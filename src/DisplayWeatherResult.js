@@ -3,7 +3,6 @@ import FormattedDate from "./FormattedDate";
 import WeatherIcon from "./WeatherIcon.js";
 import Temperature from "./Temperature";
 
-// import ForecastResult from "./ForecastResult";
 export default function DisplayWeatherResult(props) {
   return (
     <div className="DisplayWeatherResult">
@@ -31,11 +30,11 @@ export default function DisplayWeatherResult(props) {
 
             <div className=" maxmin d-flex justify-content-around">
               <div>
-                <div>Highest</div>
+                <div>High</div>
                 <div>{Math.round(props.data.high)}</div>
               </div>
               <div>
-                <div>Lowest</div>
+                <div>Low</div>
                 <div>{Math.round(props.data.low)}</div>
               </div>
             </div>
