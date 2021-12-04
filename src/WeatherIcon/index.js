@@ -1,0 +1,21 @@
+const Icons = {
+  "01d": require("./day.svg").default,
+  "02d": require("./cloudy-day-1.svg").default,
+  "03d": require("./cloudy.svg").default,
+  "04d": require("./cloudy.svg").default,
+  "09d": require("./rainy-6.svg").default,
+  "10d": require("./rainy-2.svg").default,
+  "11d": require("./thunder.svg").default,
+  "13d": require("./snowy-6.svg").default,
+  "50d": require("./fog.svg").default,
+  "01n": require("./night.svg").default,
+  "02n": require("./cloudy-night-1.svg").default,
+  "03n": require("./cloudy-night-1.svg").default,
+  "04n": require("./cloudy-night-1.svg").default,
+  "09n": require("./rainy-6.svg").default,
+  "10n": require("./rainy-4.svg").default,
+  "11n": require("./thunder.svg").default,
+  "13n": require("./snowy-6.svg").default,
+  "50n": require("./fog.svg").default,
+};
+export default Icons;

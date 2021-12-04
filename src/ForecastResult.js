@@ -1,4 +1,5 @@
 import React from "react";
+import WeatherIcon from "./WeatherIcon.js";
 
 export default function ForecastResult(props) {
   function formatday(time) {
@@ -20,10 +21,15 @@ export default function ForecastResult(props) {
               <strong>{formatday(forecastDay.dt)}</strong>
             </div>
             <div>
-              <img
+              <WeatherIcon
+                icon={forecastDay.weather[0].icon}
+                description={forecastDay.weather[0].description}
+              />
+
+              {/* <img
                 src={`https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png`}
                 alt={forecastDay.weather[0].description}
-              />
+              /> */}
             </div>
             <div className="d-flex  maxmin d-flex justify-content-around ">
               <div>
