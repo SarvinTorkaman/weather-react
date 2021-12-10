@@ -1,49 +1,47 @@
-import React from "react";
-import WeatherIcon from "./WeatherIcon.js";
+import React, { useState, useEffect } from "react";
+
+import ForecastEachDay from "./ForecastEachDay.js";
+import axios from "axios";
 
 export default function ForecastResult(props) {
-  function formatday(time) {
-    let date = new Date(time * 1000);
+  const [loaded, getLoaded] = useState(false);
+  const [forecast, setForecast] = useState([]);
 
-    let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
-
-    return days[date.getDay()];
+  function getForecastArray(response) {
+    setForecast(response.data.daily);
+    getLoaded(true);
+    // console.log(forecast);
   }
+
   //   console.log(` array is ${props.forecastArray}`);
   //   console.log(`sliced array is ${props.forecastArray.slice(1, 6)}`);
-  return (
-    <div className="row mt-4 d-flex justify-content-center">
-      {props.forecastArray.slice(1, 6).map((forecastDay, index) => {
-        return (
-          <div key={index} className="col-md-2 m-2 p-2 card ">
-            <div className="text-muted">
-              {" "}
-              <strong>{formatday(forecastDay.dt)}</strong>
-            </div>
-            <div>
-              <WeatherIcon
-                icon={forecastDay.weather[0].icon}
-                description={forecastDay.weather[0].description}
-              />
 
-              {/* <img
-                src={`https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png`}
-                alt={forecastDay.weather[0].description}
-              /> */}
-            </div>
-            <div className="d-flex  maxmin d-flex justify-content-around ">
-              <div>
-                <div>Max</div>
-                <div> {Math.round(forecastDay.temp.max)}</div>
+  useEffect(() => {
+    getLoaded(false);
+  }, [props.lon, props.lat]);
+
+  if (loaded === true) {
+    return (
+      <div className="row mt-4 d-flex justify-content-center">
+        {forecast.map((forecastDay, index) => {
+          if (index < 5) {
+            return (
+              <div key={index} className="col-md-2 m-2 p-2 card ">
+                <ForecastEachDay forecastDay={forecastDay} />
               </div>
-              <div>
-                <div>Min</div>
-                <div> {Math.round(forecastDay.temp.min)}</div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+            );
+          } else {
+            return null;
+          }
+        })}
+      </div>
+    );
+  } else {
+    let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
+    let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.lat}&lon=${props.lon}&appid=${apiKey}&units=metric`;
+
+    axios.get(apiUrlForecast).then(getForecastArray);
+
+    return null;
+  }
 }

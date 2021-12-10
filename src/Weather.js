@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-//import FormattedDate from "./FormattedDate";
 import DisplayWeatherResult from "./DisplayWeatherResult";
 
 import ForecastResult from "./ForecastResult";
@@ -11,19 +10,16 @@ export default function Weather(props) {
 
   const [result, setResult] = useState({ loaded: false });
 
-  //  const [loaded, setLaoded] = useState("");
-  const [forecast, setForecast] = useState([]);
-  //const [fahrenheit, setFahrenheit] = useState("");
-  // const [celcius, setCelcius] = useState(result.temperature);
+  // const [forecast, setForecast] = useState([]);
 
   function getCity(event) {
     setCity(event.target.value);
   }
 
-  function getForecastArray(response) {
-    setForecast(response.data.daily);
-    // console.log(forecast);
-  }
+  // function getForecastArray(response) {
+  //   setForecast(response.data.daily);
+  //   // console.log(forecast);
+  // }
 
   function getWeather(response) {
     // console.log(response);
@@ -41,13 +37,14 @@ export default function Weather(props) {
       icon: response.data.weather[0].icon,
       high: response.data.main.temp_max,
       low: response.data.main.temp_min,
+      lat: response.data.coord.lat,
+      lon: response.data.coord.lon,
     });
-    // setTemperature(Math.round(response.data.main.temp));
 
-    let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
-    let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
+    // let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
+    // let apiUrlForecast = `https://api.openweathermap.org/data/2.5/onecall?lat=${response.data.coord.lat}&lon=${response.data.coord.lon}&appid=${apiKey}&units=metric`;
 
-    axios.get(apiUrlForecast).then(getForecastArray);
+    // axios.get(apiUrlForecast).then(getForecastArray);
   }
   function handleSubmit(event) {
     event.preventDefault();
@@ -60,7 +57,6 @@ export default function Weather(props) {
     axios.get(apiUrl).then(getWeather);
   }
   function searchLocation(position) {
-    // console.log(position);
     let lat = position.coords.latitude;
     let lon = position.coords.longitude;
     let apiKey = "44a9d77f1f64a6f4ebc731802143f760";
@@ -107,7 +103,7 @@ export default function Weather(props) {
 
           <DisplayWeatherResult data={result} />
           <hr />
-          <ForecastResult forecastArray={forecast} />
+          <ForecastResult lon={result.lon} lat={result.lat} />
         </div>
       </div>
     );
